@@ -6,17 +6,11 @@ Vue.use(ElementUI);
 import './assets/base.css'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
+import VueAxios from './lib/vue-axios.js'
+Vue.use(VueAxios)
+import router from './lib/router.js'
 Vue.config.productionTip = false
-import login from './components/login.vue'
 new Vue({
   render: h => h(App),
-  router: new VueRouter({
-    routes: [{
-      path: '/',
-      redirect:'/login'
-    },{
-      path: '/login',
-      component:login
-    }]
-  })
+  router
 }).$mount('#app')

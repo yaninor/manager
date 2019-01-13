@@ -8,21 +8,30 @@
         :rules="rules"
         ref="formData"
       >
-        <el-form-item label="用户名" prop="username">
+        <el-form-item
+          label="用户名"
+          prop="username"
+        >
           <el-input v-model="formData.username"></el-input>
         </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input v-model="formData.password"></el-input>
+        <el-form-item
+          label="密码"
+          prop="password"
+        >
+          <el-input
+            type="password"
+            v-model="formData.password"
+          ></el-input>
         </el-form-item>
         <el-button
           class="login-btn"
           type="primary"
           @click="submitForm('formData')"
-        >主要按钮</el-button>
+        >登录</el-button>
       </el-form>
     </div>
   </div>
-</template>
+</template> 
 <script>
 export default {
   name: "login",
@@ -32,30 +41,57 @@ export default {
         username: "",
         password: ""
       },
+      // element-ul表单验证
       rules: {
-          username: [
-            { required: true, message: '请输入用户名', trigger: 'change' },
-            { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'change' }
-          ],
-          password: [
-            { required: true, message: '请输入密码', trigger: 'change' },
-            { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'change' }
-          ]
+        username: [
+          { required: true, message: "请输入用户名", trigger: "change" },
+          {
+            min: 5,
+            max: 15,
+            message: "长度在 5 到 15 个字符",
+            trigger: "change"
+          }
+        ],
+        password: [
+          { required: true, message: "请输入密码", trigger: "change" },
+          {
+            min: 6,
+            max: 15,
+            message: "长度在 6 到 15 个字符",
+            trigger: "change"
+          }
+        ]
       }
     };
   },
   methods: {
+    //非空判断
     submitForm(formData) {
-        this.$refs[formData].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
-  },
+      // $refs可以通过设置的名字获取对应的dom
+      this.$refs[formData].validate(valid => {
+        if (valid) {
+          //登录接口调用
+          this.$axios.post("login", this.formData).then(res => {
+            // console.log(res);
+            if (res.data.meta.status === 400) {
+              //登录失败
+              this.$message.error(res.data.meta.msg);
+            } else if (res.data.meta.status === 200) {
+              // 登录成功
+              this.$message({
+                message: res.data.meta.msg,
+                type: "success"
+              });             
+            }
+          });
+        } else {
+          //未输入内容
+          this.$message.error("请输入正确的格式!!!");
+          return false;
+        }
+      });
+    }
+  }
 };
 </script>
 <style lang="scss">
