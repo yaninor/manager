@@ -11,6 +11,7 @@ Vue.use(VueAxios)
 import router from './lib/router.js'
 Vue.config.productionTip = false
 new Vue({
+  el:'#app',
   render: h => h(App),
   router
-}).$mount('#app')
+})

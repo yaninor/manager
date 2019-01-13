@@ -38,8 +38,8 @@ export default {
   data() {
     return {
       formData: {
-        username: "",
-        password: ""
+        username: "admin",
+        password: "123456"
       },
       // element-ul表单验证
       rules: {
@@ -78,10 +78,14 @@ export default {
               this.$message.error(res.data.meta.msg);
             } else if (res.data.meta.status === 200) {
               // 登录成功
+              // console.log(res);
               this.$message({
                 message: res.data.meta.msg,
                 type: "success"
-              });             
+              }); 
+              //将返回的token存储到sessionStorage,并跳转到首页
+              window.sessionStorage.setItem('token',res.data.data.token);
+              this.$router.push('/');            
             }
           });
         } else {
