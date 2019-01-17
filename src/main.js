@@ -9,6 +9,8 @@ Vue.use(VueRouter)
 import VueAxios from './lib/vue-axios.js'
 Vue.use(VueAxios)
 import router from './lib/router.js'
+import myBreadcrumb from './components/myBreadcrumb.vue'
+Vue.component('myBreadcrumb', myBreadcrumb)
 Vue.config.productionTip = false
 new Vue({
   el:'#app',
