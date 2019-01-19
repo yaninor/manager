@@ -1,32 +1,18 @@
 <template>
   <div id="uesrs-container">
-    <myBreadcrumb
-      :level2="level2"
-      :level3="level3"
-    ></myBreadcrumb>
+    <myBreadcrumb :level2="level2" :level3="level3"></myBreadcrumb>
     <el-row class="my-el-row">
       <el-col :span="2">
         <div class="grid-content bg-purple-dark">
-          <el-button
-            type="success"
-            plain
-          >添加角色</el-button>
+          <el-button type="success" plain>添加角色</el-button>
         </div>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="24">
-        <el-table
-          :data="rolesList"
-          style="width: 100%"
-          border
-        >
-          <el-table-column
-            label="#"
-            width="30"
-            type="expand"
-          >
-                  <template slot-scope="props">
+        <el-table :data="rolesList" style="width: 100%" border>
+          <el-table-column label="#" width="30" type="expand">
+            <template slot-scope="props">
               <!-- 生成 最左边的一级菜单 -->
               <el-row v-for="item in props.row.children" :key="item.id">
                 <el-col :span="4">
@@ -60,39 +46,13 @@
               </el-row>
             </template>
           </el-table-column>
-          <el-table-column
-            prop="roleName"
-            label="角色名称"
-            width="180"
-          ></el-table-column>
-          <el-table-column
-            prop="roleDesc"
-            label="角色描述"
-            width="300"
-          ></el-table-column>
-          </el-table-column>
-          <el-table-column
-            label="操作"
-          >
+          <el-table-column prop="roleName" label="角色名称" width="180"></el-table-column>
+          <el-table-column prop="roleDesc" label="角色描述" width="300"></el-table-column>
+          <el-table-column label="操作">
             <template slot-scope="scope">
-              <el-button
-                type="primary"
-                plain
-                size="mini"
-                icon="el-icon-edit"
-              ></el-button>
-              <el-button
-                type="danger"
-                plain
-                size="mini"
-                icon="el-icon-delete"
-              ></el-button>
-              <el-button
-                type="warning"
-                plain
-                size="mini"
-                icon="el-icon-check"
-              ></el-button>
+              <el-button type="primary" plain size="mini" icon="el-icon-edit"></el-button>
+              <el-button type="danger" plain size="mini" icon="el-icon-delete"></el-button>
+              <el-button type="warning" plain size="mini" icon="el-icon-check"></el-button>
             </template>
           </el-table-column>
         </el-table>

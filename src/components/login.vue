@@ -8,26 +8,13 @@
         :rules="rules"
         ref="formData"
       >
-        <el-form-item
-          label="用户名"
-          prop="username"
-        >
+        <el-form-item label="用户名" prop="username">
           <el-input v-model="formData.username"></el-input>
         </el-form-item>
-        <el-form-item
-          label="密码"
-          prop="password"
-        >
-          <el-input
-            type="password"
-            v-model="formData.password"
-          ></el-input>
+        <el-form-item label="密码" prop="password">
+          <el-input type="password" v-model="formData.password"></el-input>
         </el-form-item>
-        <el-button
-          class="login-btn"
-          type="primary"
-          @click="submitForm('formData')"
-        >登录</el-button>
+        <el-button class="login-btn" type="primary" @click="submitForm('formData')">登录</el-button>
       </el-form>
     </div>
   </div>
@@ -81,10 +68,10 @@ export default {
               this.$message({
                 message: res.data.meta.msg,
                 type: "success"
-              }); 
+              });
               //将返回的token存储到sessionStorage,并跳转到首页
-              window.sessionStorage.setItem('token',res.data.data.token);
-              this.$router.push('/');            
+              window.sessionStorage.setItem("token", res.data.data.token);
+              this.$router.push("/");
             }
           });
         } else {

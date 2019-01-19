@@ -11,9 +11,13 @@ Vue.use(VueAxios)
 import router from './lib/router.js'
 import myBreadcrumb from './components/myBreadcrumb.vue'
 Vue.component('myBreadcrumb', myBreadcrumb)
+import moment from 'moment'
 Vue.config.productionTip = false
+Vue.filter('beautifyTime', (value) => {
+  return moment().format('YYYY-MM-DD  HH:mm:ss');
+})
 new Vue({
   el:'#app',
-  render: h => h(App),
+  render: h => h(App),  
   router
 })

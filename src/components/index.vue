@@ -2,15 +2,11 @@
   <div class="main-container">
     <el-container>
       <el-header class="el-row header">
-        <el-row
-          type="flex"
-          class="row-bg"
-        >
+        <el-row type="flex" class="row-bg">
           <el-col :span="4">
-            <div class="grid-content bg-purple"><img
-                src="../assets/logo.png"
-                alt=""
-              ></div>
+            <div class="grid-content bg-purple">
+              <img src="../assets/logo.png" alt>
+            </div>
           </el-col>
           <el-col :span="18">
             <div class="grid-content bg-purple">
@@ -19,12 +15,7 @@
           </el-col>
           <el-col :span="2">
             <div class="grid-content bg-purple">
-              <el-button
-                class="btn-logout"
-                @click="logout"
-                type="danger"
-                round
-              >退出</el-button>
+              <el-button class="btn-logout" @click="logout" type="danger" round>退出</el-button>
             </div>
           </el-col>
         </el-row>
@@ -32,10 +23,7 @@
       <el-container>
         <el-aside width="200px">
           <el-row class="tac">
-            <el-col
-              :span="12"
-              class="aside"
-            >
+            <el-col :span="12" class="aside">
               <el-menu
                 default-active="2"
                 class="el-menu-vertical-demo"
@@ -43,23 +31,16 @@
                 unique-opened
                 router
               >
-                <el-submenu
-                  v-for="(item, index) in menuList"
-                  :key="item.id"
-                  :index="item.order+''"
-                >
+                <el-submenu v-for="(item, index) in menuList" :key="item.id" :index="item.order+''">
                   <template slot="title">
                     <i class="el-icon-location"></i>
                     <span>{{item.authName}}</span>
                   </template>
-                  <el-menu-item-group
-                    v-for="(i, idx) in item.children"
-                    :key="i.id"
-                  >
-                    <el-menu-item :index="'/index/'+i.path"><i
-                        data-v-7b63ac08=""
-                        class="el-icon-menu"
-                      ></i>{{i.authName}}</el-menu-item>
+                  <el-menu-item-group v-for="(i, idx) in item.children" :key="i.id">
+                    <el-menu-item :index="'/index/'+i.path">
+                      <i data-v-7b63ac08 class="el-icon-menu"></i>
+                      {{i.authName}}
+                    </el-menu-item>
                   </el-menu-item-group>
                 </el-submenu>
               </el-menu>
@@ -72,7 +53,6 @@
         </el-main>
       </el-container>
     </el-container>
-  </div>
   </div>
 </template>
 <script>
@@ -134,7 +114,7 @@ export default {
   }
   .el-aside {
     border-right: 1px solid #e6e6e6;
-    background-color: #fff!important;
+    background-color: #fff !important;
   }
   .aside.el-col-12 {
     width: 100%;
@@ -144,11 +124,10 @@ export default {
   }
   .el-menu {
     border: none;
-    background-color: #fff!important;
+    background-color: #fff !important;
   }
   .el-main {
     padding-top: 0;
-
   }
 }
 </style>

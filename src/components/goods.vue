@@ -15,31 +15,24 @@
       </el-col>
       <el-col :span="2">
         <div class="grid-content bg-purple-dark">
-          <el-button type="success" plain>成功按钮</el-button>
+          <el-button type="success" plain>添加商品</el-button>
         </div>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="24">
-        <el-table :data="userList" style="width: 100%" border>
-          <el-table-column label="#" width="30" type="index"></el-table-column>
-          <el-table-column prop="username" label="姓名" width="180"></el-table-column>
-          <el-table-column prop="email" label="邮箱" width="300"></el-table-column>
-          <el-table-column prop="mobile" label="电话" width="300"></el-table-column>
-          <el-table-column prop="mg_state" label="用户状态" width="80">
-            <template slot-scope="scope">
-              <el-switch
-                v-model="scope.row.mg_state"
-                active-color="#13ce66"
-                inactive-color="#ff4949"
-              ></el-switch>
-            </template>
+        <el-table :data="goodsList" style="width: 100%" border>
+          <el-table-column label="#" width="40" type="index"></el-table-column>
+          <el-table-column prop="goods_name" label="商品名称" width="500"></el-table-column>
+          <el-table-column prop="goods_price" label="商品价格(元)" width="100"></el-table-column>
+          <el-table-column prop="goods_weight" label="商品重量" width="100"></el-table-column>
+          <el-table-column prop="add_time" label="创建时间" width="300">
+            <template slot-scope="prop">{{prop.row.add_time | beautifyTime}}</template>
           </el-table-column>
-          <el-table-column label="操作" width="300">
+          <el-table-column label="操作" width="200">
             <template slot-scope="scope">
               <el-button type="primary" plain size="mini" icon="el-icon-edit"></el-button>
               <el-button type="danger" plain size="mini" icon="el-icon-delete"></el-button>
-              <el-button type="warning" plain size="mini" icon="el-icon-check"></el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -50,13 +43,12 @@
         <div class="grid-content bg-purple-dark">
           <div class="block">
             <el-pagination
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
-              :current-page="pageData.pagenum"
-              :page-sizes="[2, 4, 6, 8,10]"
+              :page-sizes="[4, 6, 8,10]"
               :page-size="pageData.pagesize"
               layout="total, sizes, prev, pager, next, jumper"
               :total="total"
+              @current-change="currentChange"
+              @size-change="sizeChange"
             ></el-pagination>
           </div>
         </div>
@@ -76,24 +68,31 @@ export default {
         pagenum: 1,
         pagesize: 10
       },
-      userList: [],
+      goodsList: [],
       total: 0
     };
   },
-  async created() {
-    let res = await this.$axios.get("users", {
-      params: this.pageData
-    });
-    this.userList = res.data.data.users;
-    this.total = res.data.data.total;
-  },
   methods: {
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+    async getGoods() {
+      let res = await this.$axios.get("goods", {
+        params: this.pageData
+      });
+      this.goodsList = res.data.data.goods;
+      this.total = res.data.data.total;
     },
-    handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+    currentChange(pagenum) {
+      console.log(pagenum);
+      this.pageData.pagenum = pagenum;
+      this.getGoods();
+    },
+    sizeChange(pagesize) {
+      this.pageData.pagesize = pagesize;
+      this.pageData.pagenum = 1;
+      this.getGoods();
     }
+  },
+  created() {
+    this.getGoods();
   }
 };
 </script>
